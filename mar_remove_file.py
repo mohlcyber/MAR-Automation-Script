@@ -1,5 +1,5 @@
 #Written by mohlcyber
-#v.0.0.1 MAR Python API
+#v.0.2 MAR Python API
 #based on a hash script will automatically launch query and tries to delete files (RemoveFile)
 
 import sys
