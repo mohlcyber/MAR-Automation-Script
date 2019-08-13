@@ -7,3 +7,5 @@ Usage:
 ```
 mar_api.py [-h] -i EPOIP -p EPOPORT -U EPOUSERNAME -P EPOPASSWORD -H HASH
 ```
+
+!!! Will add the check for file status soon.
