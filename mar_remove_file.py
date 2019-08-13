@@ -260,5 +260,3 @@ if __name__ == '__main__':
 			while mar.status_reaction(reaction_id) is False:
 				print('STATUS: Waiting for 5 seconds to check again.')
 				time.sleep(5)
-
-			sys.exit()
