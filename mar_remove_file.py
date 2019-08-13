@@ -119,15 +119,18 @@ class MAR():
 		if res.status_code == 200:
 			try:
 				items = res.json()['totalItems']
-				print('RESULT: MAR found {} System/s with this hash.'.format(items))
 
 				react_summary = []
 				for item in res.json()['items']:
-					react_dict = {}
-					react_dict[item['id']] = item['output']['Files|full_name']
-					react_summary.append(react_dict)
+					if item['output']['Files|status'] != 'deleted':
+						react_dict = {}
+						react_dict[item['id']] = item['output']['Files|full_name']
+						react_summary.append(react_dict)
+
+				print('RESULT: MAR found {} System/s with this hash. {} of them with the file status CURRENT.'.format(items, len(react_summary)))
 
 				return react_summary
+
 			except Exception as e:
 				print('ERROR: Something went wrong to retrieve the results. Error: {}'.format(e))
 				sys.exit()
@@ -240,6 +243,10 @@ if __name__ == '__main__':
 		time.sleep(5)
 
 	results = mar.results(queryId)
+
+	if results == []:
+		print('INFO: All Files deleted on Systems')
+		sys.exit()
 
 	#react_id, arg_name = mar.reactions()
 	#if react_id is None or arg_name is None:
