@@ -260,9 +260,11 @@ if __name__ == '__main__':
 
 			if reaction_id is None:
 				print('ERROR: Could not create new MAR reaction')
+				sys.exit()
 
 			if mar.start_reaction(reaction_id) is False:
 				print('ERROR: Something went wrong starting MAR reaction')
+				sys.exit()
 
 			while mar.status_reaction(reaction_id) is False:
 				print('STATUS: Waiting for 5 seconds to check again.')
