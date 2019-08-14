@@ -1,5 +1,5 @@
 #Written by mohlcyber
-#v.0.2 MAR Python API
+#v.0.0.1 MAR Python API
 #based on a hash script will automatically launch query and tries to delete files (RemoveFile)
 
 import sys
@@ -26,7 +26,7 @@ class MAR():
 
 		self.query = args.hash
 
-	def create_search(self, ):
+	def create_search(self):
 		queryId = None
 
 		if len(str(self.query)) == 32:
@@ -37,7 +37,7 @@ class MAR():
 			type = 'sha256'
 		else:
 			print('Something went wrong with the Hash input')
-			return queryId
+			sys.exit()
 
 		payload = {
 			"projections": [
@@ -133,14 +133,13 @@ class MAR():
 
 			except Exception as e:
 				print('ERROR: Something went wrong to retrieve the results. Error: {}'.format(e))
-				sys.exit()
 		else:
 			print('ERROR: Something went wrong to retrieve the results.')
 
 	def reactions(self):
 		react_id = None
 		arg_name = None
-		res = requests.get(self.url + '/rest/mar/v1/reactions?$offset=0&$limit=1000&$filter={"type":"CUSTOM"}',
+		res = requests.get(self.url + '/rest/mar/v1/reactions?$offset=0&$limit=1000',
 						   headers=self.headers,
 						   auth=self.auth,
 						   verify=self.verify)
@@ -148,7 +147,7 @@ class MAR():
 		if res.status_code == 200:
 			try:
 				for item in res.json()['items']:
-					if item['name'] == 'Submit To ATD':
+					if item['name'] == 'RemoveFile':
 						react_id = item['id']
 					for arg in item['arguments']:
 						arg_name = arg['name']
@@ -248,9 +247,9 @@ if __name__ == '__main__':
 		print('INFO: All Files deleted on Systems')
 		sys.exit()
 
-	#react_id, arg_name = mar.reactions()
-	#if react_id is None or arg_name is None:
-	#	print('ERROR: Could not find the appropriated MAR reaction')
+	# react_id, arg_name = mar.reactions()
+	# if react_id is None or arg_name is None:
+	# 	print('ERROR: Could not find the appropriated MAR reaction')
 
 	#Create and Execute Reaction
 	for result in results:
