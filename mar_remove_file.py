@@ -1,5 +1,5 @@
 #Written by mohlcyber
-#v.0.0.1 MAR Python API
+#v.0.3 MAR Python API
 #based on a hash script will automatically launch query and tries to delete files (RemoveFile)
 
 import sys
@@ -236,6 +236,7 @@ if __name__ == '__main__':
 
 	if mar.start_search(queryId) is False:
 		print('ERROR: Something went wrong to start the search')
+		sys.exit()
 
 	while mar.status_search(queryId) is False:
 		print('STATUS: Waiting for 5 seconds to check again.')
